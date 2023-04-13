@@ -481,5 +481,9 @@ export class CommsAPI extends TachyonClient {
      */
     protected async getQueuesList(query: object): Promise<Queue[]> {
         const response = this.request("c.matchmaking.query", query);
+
+        return response.then((data) => {
+            return data.matchmaking_list;
+        }
     }
 }
