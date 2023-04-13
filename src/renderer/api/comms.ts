@@ -17,6 +17,7 @@ import { battleMessageHandlers } from "@/api/response-handlers/messages/battle-m
 import { directAnnouncementHandlers } from "@/api/response-handlers/messages/direct-announcement";
 import { directMessageHandlers } from "@/api/response-handlers/messages/direct-message";
 import { SpadsBattle } from "@/model/battle/spads-battle";
+import { Queue } from "@/model/matchmaking";
 import { Message, MessageHandler } from "@/model/messages";
 import { spadsBoxToStartBox } from "@/utils/start-boxes";
 import { tachyonLog } from "@/utils/tachyon-log";
@@ -473,5 +474,12 @@ export class CommsAPI extends TachyonClient {
         if (warnIfUnhandled) {
             console.warn(`No message handler defined for message`, message);
         }
+    }
+
+    /**
+     * Get the list of Queues the user can join
+     */
+    protected async getQueuesList(query: object): Promise<Queue[]> {
+        const response = this.request("c.matchmaking.query", query);
     }
 }
